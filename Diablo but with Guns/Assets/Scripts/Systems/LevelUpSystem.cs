@@ -33,21 +33,21 @@ public class LevelUpSystem : MonoBehaviour
     {
         currentEXP += amount;
 
-        int tmp_cur_level = (int)Mathf.Sqrt(currentEXP / baseEXP);
+        int tmp_cur_level = (int)Mathf.Sqrt(currentEXP / baseEXP)+1;
 
         if(currentLevel != tmp_cur_level)
         {
             currentLevel= tmp_cur_level;
         }
 
-        expForNextLevel = baseEXP * (currentLevel + 1) * (currentLevel + 1);
+        expForNextLevel = baseEXP * currentLevel * currentLevel;
         expDifferenceToNextLevel = expForNextLevel - currentEXP;
-        totalEXPDifference = expForNextLevel - (baseEXP * currentLevel * currentLevel);
+        totalEXPDifference = expForNextLevel - (baseEXP * (currentLevel-1) * (currentLevel-1));
 
         fillAmount = (float)expDifferenceToNextLevel / (float)totalEXPDifference;
         reversedFillAmount = 1 - fillAmount;
 
-        statPoints = 5 * currentLevel;
-        skillPoints = 15 * currentLevel;
+        statPoints = 5 * (currentLevel - 1);
+        skillPoints = 15 * (currentLevel - 1);
     }
 }
