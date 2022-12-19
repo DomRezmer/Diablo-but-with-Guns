@@ -74,7 +74,7 @@ public class ClickToMove : MonoBehaviour
             }
         }
 
-        if(enemyClicked && doubleClick)
+        if(enemyClicked)
         {
             MoveAndAttack();
         }
