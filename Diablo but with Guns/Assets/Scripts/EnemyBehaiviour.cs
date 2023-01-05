@@ -74,6 +74,7 @@ public class EnemyBehaiviour : MonoBehaviour
         {
             anim.SetBool("fighting", false);
             transform.LookAt(targetPlayer);
+            Debug.Log("Player Seen!!");
 
             if(Time.time > nextAttack)
             {
