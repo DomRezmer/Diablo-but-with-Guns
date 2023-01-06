@@ -7,7 +7,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent (typeof(Rigidbody))]
 [RequireComponent(typeof(NavMeshAgent))]
-public class EnemyBehaiviour : MonoBehaviour
+public class EnemyBehaiviour : Interactable
 {
     //NAV MESH AGENT
     private NavMeshAgent navMeshAgent;
@@ -88,8 +88,7 @@ public class EnemyBehaiviour : MonoBehaviour
         }
                     
     }
-
-    void OnDrawGizmos()
+     void OnDrawGizmos()
     {
         Handles.color = Color.yellow;
         //Draw the lookRadius of the enemy
@@ -98,5 +97,12 @@ public class EnemyBehaiviour : MonoBehaviour
         Handles.color = Color.red;
         //Draw the attackRadius of the enemy
         Handles.DrawWireArc(transform.position + new Vector3(0, 0.2f, 0), transform.up, transform.right, 360, attackRadius);
+    }
+
+    public override void Interact()
+    {
+        Debug.Log("Enemy got damaged!");
+        
+        base.Interact();
     }
 }

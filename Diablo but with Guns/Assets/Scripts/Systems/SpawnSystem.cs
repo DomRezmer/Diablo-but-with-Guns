@@ -41,11 +41,27 @@ public class SpawnSystem : MonoBehaviour
 
         for(int i = 0; i < spawnAmount; i++)
         {
+            /*SQUARE 
             float xSpawnPos = transform.position.x + Random.Range(-spawnRange, spawnRange);
             float zSpawnPos = transform.position.z + Random.Range(-spawnRange, spawnRange);
-
+            
             Vector3 spawnPoint = new Vector3(xSpawnPos, 0, zSpawnPos);
-            GameObject newObject = (GameObject)Instantiate(enemiesToSpawn[Random.Range(0, enemiesToSpawn.Length)], spawnPoint, Quaternion.identity);
+            */
+
+            //Circle
+            float theta = 360f * Random.value;
+            float radius = Random.Range(0f, spawnRange);
+
+            Vector3 center = transform.position;
+            Vector3 point = new Vector3(radius * Mathf.Sin(theta), 0f, radius * Mathf.Cos(theta));
+
+            Vector3 spawnPoint = center + point;
+
+            //LOOKROTATION
+            float rot = 360f * Random.value;
+            Quaternion spawnRotation = Quaternion.Euler(0, rot, 0);
+
+            GameObject newObject = (GameObject)Instantiate(enemiesToSpawn[Random.Range(0, enemiesToSpawn.Length)], spawnPoint, spawnRotation);
         }
     }
 
