@@ -6,13 +6,16 @@ public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;
-
     public HealthBar healthBar;
+    public bool IsDead = false;
+    private Animator anim;
+
 
     void Start()
     {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -22,11 +25,23 @@ public class PlayerHealth : MonoBehaviour
             TakeDamage(20);
         }
     }
+ 
 
-    void TakeDamage(int damage)
+      
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+    if (currentHealth < 0)
+        currentHealth = 0;
 
         healthBar.SetHealth(currentHealth);
+        
+        if (currentHealth == 0)
+        {
+            IsDead = true;   
+            anim.SetTrigger("isDead 0");
+        }
     }
+  
+
 }

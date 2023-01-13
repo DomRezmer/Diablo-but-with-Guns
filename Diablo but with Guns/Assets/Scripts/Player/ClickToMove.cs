@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
+ 
 
 public class ClickToMove : MonoBehaviour
 {
@@ -17,6 +18,9 @@ public class ClickToMove : MonoBehaviour
     private Transform targetedEnemy;
     private bool enemyClicked;
     private bool walking;
+    private bool crouching = false;
+    private bool crouchWalke;
+    private bool standing = true; 
 
     //INTERACTABLES
     private Transform clickedObject;
@@ -40,7 +44,9 @@ public class ClickToMove : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+        if (standing) {
 
+        
         CheckDoubleClick();
 
         if (Input.GetButtonDown("Fire2"))
@@ -100,10 +106,89 @@ public class ClickToMove : MonoBehaviour
             {
                 walking = true;
             }
+
         }
 
         anim.SetBool("isWalking", walking);
     }
+        
+        if (Input.GetKeyDown("c"))
+        {
+            standing = !standing;
+            crouching = !crouching;
+            anim.SetBool("isCrouching", crouching);
+        }
+
+        if (crouching && !standing)
+        {
+            if (Input.GetButtonDown("Fire2"))
+            {
+                navMeshAgent.ResetPath();
+                if (Physics.Raycast(ray, out hit, 1000))
+                {
+                    if (hit.collider.tag == "Enemy")
+                    {
+                        targetedEnemy = hit.transform;
+                        enemyClicked = true;
+                        print("Enemy HIT!");
+                    }
+                    else if (hit.collider.tag == "Chest")
+                    {
+                        isObjectClicked = true;
+                        clickedObject = hit.transform;
+                    }
+                    else if (hit.collider.tag == "Info")
+                    {
+                        isObjectClicked = true;
+                        clickedObject = hit.transform;
+                    }
+                    else
+                    {
+                        crouchWalke = true;
+                        enemyClicked = false;
+                        navMeshAgent.isStopped = false;
+                        navMeshAgent.destination = hit.point;
+                    }
+                }
+            }
+
+
+            if (enemyClicked)
+            {
+                MoveAndAttack();
+            }
+            else if (enemyClicked) //Change this to if Left click
+            {
+                //Select enemy
+            }
+            else if (isObjectClicked && clickedObject.gameObject.tag == "Info")
+            {
+                ReadInfos(clickedObject);
+            }
+            else if (isObjectClicked && clickedObject.gameObject.tag == "Chest" && !isChestOpen)
+            {
+                OpenChest(clickedObject);
+            }
+            else
+            {
+                if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
+                {
+                    crouchWalke  = false;
+                }
+                else if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance >= navMeshAgent.stoppingDistance)
+                {
+                    
+                    crouchWalke= true;
+                }
+
+            }
+        }
+        anim.SetBool("isCrouchWalking", crouchWalke);
+    
+    
+    
+    }
+
 
     void MoveAndAttack()
     {
