@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public int currentHealth;
+    public float maxHealth = 100;
+    public float currentHealth;
     public HealthBar healthBar;
-    public bool IsDead = false;
+    public bool isDead = false;
     private Animator anim;
 
 
@@ -26,22 +26,23 @@ public class PlayerHealth : MonoBehaviour
         }
     }
  
-
-      
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-    if (currentHealth < 0)
-        currentHealth = 0;
+        if (currentHealth < 0)
+        {
+            currentHealth = 0;
+        }
 
         healthBar.SetHealth(currentHealth);
-        
-        if (currentHealth == 0)
+
+        if (!isDead)
         {
-            IsDead = true;   
-            anim.SetTrigger("isDead 0");
+            if (currentHealth == 0)
+            {
+                isDead = true;
+                anim.SetTrigger("isDead 0");
+            }
         }
     }
-  
-
 }

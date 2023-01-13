@@ -19,6 +19,7 @@ public class EnemyBehaiviour : Interactable
     public float attackRadius;
 
     //ATTACK
+    public float attackDamage = 2;
     private float nextAttack;
     public float attackRate = 1f;
 
@@ -28,6 +29,7 @@ public class EnemyBehaiviour : Interactable
     // Start is called before the first frame update
     void Start()
     {
+        GetComponent<EnemyHealth>().setCurrentHealth(100);
         anim = GetComponentInChildren<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         targetPlayer = PlayerManager.instance.ourPlayer.transform;
@@ -81,6 +83,8 @@ public class EnemyBehaiviour : Interactable
                 nextAttack = Time.time + attackRate;
 
                 anim.SetBool("fighting", true);
+                targetPlayer.GetComponent<PlayerHealth>().TakeDamage(attackDamage);
+                
             }
 
             navMeshAgent.isStopped = true;

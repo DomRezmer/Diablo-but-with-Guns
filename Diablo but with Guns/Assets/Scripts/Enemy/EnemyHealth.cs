@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int maxHealth = 100;
-    public int currentHealth;
+    public float maxHealth = 100;
+    public float currentHealth;
 
     public HealthBar healthBar;
 
     void Start()
     {
-        currentHealth = maxHealth;
+        maxHealth = 100;
         healthBar.SetMaxHealth(maxHealth);
     }
 
@@ -23,7 +23,22 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    void TakeDamage(int damage)
+    public void setCurrentHealth(float newHealth)
+    {
+        if(newHealth < 0)
+        {
+            currentHealth = 0;
+        }
+
+        currentHealth = newHealth;
+    }
+
+    public float getCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
 

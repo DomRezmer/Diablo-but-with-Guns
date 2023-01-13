@@ -5,7 +5,10 @@ using static UnityEngine.GraphicsBuffer;
 
 public class ClickToMove : MonoBehaviour
 {
+    public Transform player;
+    
     [Header("Stats")]
+    public float damageAmount;
     public float attackDistance;
     public float attackRate;
     private float nextAttack;
@@ -18,6 +21,8 @@ public class ClickToMove : MonoBehaviour
     private Transform targetedEnemy;
     private bool enemyClicked;
     private bool walking;
+
+    //PLAYER ANIMATIONS
     private bool crouching = false;
     private bool crouchWalke;
     private bool standing = true; 
@@ -49,7 +54,7 @@ public class ClickToMove : MonoBehaviour
         
         CheckDoubleClick();
 
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && !player.GetComponent<PlayerHealth>().isDead)
         {
             navMeshAgent.ResetPath();
             if (Physics.Raycast(ray, out hit, 1000))
@@ -184,11 +189,7 @@ public class ClickToMove : MonoBehaviour
             }
         }
         anim.SetBool("isCrouchWalking", crouchWalke);
-    
-    
-    
     }
-
 
     void MoveAndAttack()
     {
@@ -216,6 +217,16 @@ public class ClickToMove : MonoBehaviour
 
                 nextAttack = Time.time + attackRate;
                 anim.SetBool("isAttacking", true);
+
+                if (targetedEnemy.GetComponent<EnemyHealth>().currentHealth > 0)
+                {
+                    targetedEnemy.GetComponent<EnemyHealth>().TakeDamage(damageAmount);
+                }
+
+                else if (targetedEnemy.GetComponent<EnemyHealth>().currentHealth <= 0)
+                {
+                    Destroy(targetedEnemy.gameObject);
+                }
             }
 
             navMeshAgent.isStopped = true;
@@ -245,8 +256,7 @@ public class ClickToMove : MonoBehaviour
 
             isObjectClicked = false;
             navMeshAgent.ResetPath();
-        }
-        
+        }     
     }
 
     void OpenChest(Transform target)
@@ -273,7 +283,6 @@ public class ClickToMove : MonoBehaviour
             isObjectClicked = false;
             navMeshAgent.ResetPath();
         }
-
     }
 
     void CheckDoubleClick()
