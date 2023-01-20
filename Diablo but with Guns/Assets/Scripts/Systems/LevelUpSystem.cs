@@ -21,7 +21,7 @@ public class LevelUpSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("AddEXP", 1f, 1f);
+        //InvokeRepeating("AddEXP", 1f, 1f);
     }
 
     public void AddEXP()

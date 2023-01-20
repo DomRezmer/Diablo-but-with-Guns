@@ -84,6 +84,11 @@ public class EnemyBehaiviour : Interactable
 
                 anim.SetBool("fighting", true);
                 targetPlayer.GetComponent<PlayerHealth>().TakeDamage(attackDamage);
+
+                if (targetPlayer.GetComponent<PlayerHealth>().isDead)
+                {
+                    anim.SetBool("fighting", false);
+                }
                 
             }
 

@@ -9122,6 +9122,10 @@ PrefabInstance:
       propertyPath: damageAmount
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 5942366586581195484, guid: f1df98e804c4c454891ccbec721b0970, type: 3}
+      propertyPath: gameController
+      value: 
+      objectReference: {fileID: 1842230018}
     - target: {fileID: 5942366586581195487, guid: f1df98e804c4c454891ccbec721b0970, type: 3}
       propertyPath: m_Speed
       value: 5

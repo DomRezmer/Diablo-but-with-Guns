@@ -13,6 +13,9 @@ public class ClickToMove : MonoBehaviour
     public float attackRate;
     private float nextAttack;
 
+    //GAMECONTROLLER FOR LEVEL UP
+    public GameObject gameController;
+
     //NAV MESH
     private NavMeshAgent navMeshAgent;
     private Animator anim;
@@ -207,7 +210,7 @@ public class ClickToMove : MonoBehaviour
         }
         else if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance <= attackDistance)
         {
-            anim.SetBool("isAttacking", false);
+            anim.SetBool("Hit1", false);
             transform.LookAt(targetedEnemy);
             Vector3 dirToAttack = targetedEnemy.transform.position - transform.position;
 
@@ -216,7 +219,7 @@ public class ClickToMove : MonoBehaviour
                 targetedEnemy.GetComponent<Interactable>().Interact();
 
                 nextAttack = Time.time + attackRate;
-                anim.SetBool("isAttacking", true);
+                anim.SetBool("Hit1", true);
 
                 if (targetedEnemy.GetComponent<EnemyHealth>().currentHealth > 0)
                 {
@@ -226,6 +229,8 @@ public class ClickToMove : MonoBehaviour
                 else if (targetedEnemy.GetComponent<EnemyHealth>().currentHealth <= 0)
                 {
                     Destroy(targetedEnemy.gameObject);
+
+                    gameController.GetComponent<LevelUpSystem>().AddEXP();
                 }
             }
 
