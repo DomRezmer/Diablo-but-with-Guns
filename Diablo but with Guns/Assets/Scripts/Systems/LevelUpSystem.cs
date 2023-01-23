@@ -26,7 +26,7 @@ public class LevelUpSystem : MonoBehaviour
 
     public void AddEXP()
     {
-        CalculateLevel(5);
+        CalculateLevel(25);
     }
 
     void CalculateLevel(int amount)

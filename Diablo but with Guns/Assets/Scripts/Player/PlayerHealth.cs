@@ -42,7 +42,13 @@ public class PlayerHealth : MonoBehaviour
             {
                 isDead = true;
                 anim.SetTrigger("isDead 0");
+                PlayerDied();
             }
         }
+    }
+
+    private void PlayerDied()
+    {
+        GameManager.instance.GameOver();
     }
 }

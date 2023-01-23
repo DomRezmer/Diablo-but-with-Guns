@@ -9,6 +9,7 @@ public class ClickToMove : MonoBehaviour
     
     [Header("Stats")]
     public float damageAmount;
+    private float baseDamage = 20;
     public float attackDistance;
     public float attackRate;
     private float nextAttack;
@@ -192,6 +193,7 @@ public class ClickToMove : MonoBehaviour
             }
         }
         anim.SetBool("isCrouchWalking", crouchWalke);
+        
     }
 
     void MoveAndAttack()
@@ -229,8 +231,10 @@ public class ClickToMove : MonoBehaviour
                 else if (targetedEnemy.GetComponent<EnemyHealth>().currentHealth <= 0)
                 {
                     Destroy(targetedEnemy.gameObject);
+                    anim.SetBool("Hit1", false);
 
                     gameController.GetComponent<LevelUpSystem>().AddEXP();
+                    LevelUp();
                 }
             }
 
@@ -313,6 +317,14 @@ public class ClickToMove : MonoBehaviour
                 oneClick = false;
                 doubleClick = false;
             }
+        }
+    }
+
+    void LevelUp()
+    {
+        if (gameController.GetComponent<LevelUpSystem>().currentLevel > 0)
+        {
+            damageAmount = baseDamage * gameController.GetComponent<LevelUpSystem>().currentLevel;
         }
     }
 }
