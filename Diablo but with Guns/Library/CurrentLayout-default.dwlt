@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: Game
   m_RootView: {fileID: 3}
-  m_MinSize: {x: 875, y: 542}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 881, y: 492}
   m_MaxSize: {x: 16006, y: 14042}
   vertical: 0
-  controlID: 158
+  controlID: 46
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -170,7 +170,7 @@ MonoBehaviour:
   m_MinSize: {x: 605, y: 492}
   m_MaxSize: {x: 12005, y: 14042}
   vertical: 1
-  controlID: 101
+  controlID: 24
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_MinSize: {x: 605, y: 221}
   m_MaxSize: {x: 12005, y: 4021}
   vertical: 0
-  controlID: 102
+  controlID: 25
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -216,8 +216,8 @@ MonoBehaviour:
     y: 0
     width: 270
     height: 889
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -269,8 +269,8 @@ MonoBehaviour:
     y: 0
     width: 825
     height: 889
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 202, y: 221}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -354,7 +354,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 270
     y: 73
-    width: 811
+    width: 820
     height: 868
   m_ViewDataDictionary: {fileID: 0}
   m_ViewTransforms:
@@ -362,14 +362,14 @@ MonoBehaviour:
     - {fileID: 7015693478317285810, guid: a9f242dfd0cbc7e458a1f525d811e860, type: 2}
     - {fileID: -1415947974474165874, guid: 2eab46eefc309534daa08f8e0fee9db1, type: 2}
     m_ValueSerializationHelper:
-    - e00: 0.96275574
+    - e00: 0.7641975
       e01: 0
       e02: 0
-      e03: 346.59207
+      e03: 267.18518
       e10: 0
-      e11: 0.96275574
+      e11: 0.7641975
       e12: 0
-      e13: 344.03876
+      e13: 223.83272
       e20: 0
       e21: 0
       e22: 1
@@ -552,9 +552,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 4058feff4c5dfeff9463feff9670feff6e7dfeff1c84feffc08afeff5e90feff74a4feff90aefeffeab4feff0abbfeff32cdfeffe0d9feffd219ffff161fffffb636fffff83bfffffc72ffff2478ffffa47fffffb285ffffb093ffff3499ffff2ea6ffff84abffff42adffffa8d6ffffeadbffffb2e4ffff20fbffff5c640000087d000040ec0000aced0000faf70000b4fa000088fb000054fc0000befd000018250100d22701007a320100343501000a460100225101005a5b01009a7f010004810100b28f01006c9201000c94010076950100d89f01000ec10100
+      m_SelectedIDs: 42ed0100
+      m_LastClickedID: 126274
+      m_ExpandedIDs: bc46feffdc49feff5a4efeff8054feffe074feffe47efeff5e86feffbc8cfeff3894feff66b0feff00fffeff7e03ffff7e1dffffde1fffff282fffffa633ffffb8c6010060c80100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -614,9 +614,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1280, y: 720, z: 0}
+    m_Target: {x: -50.096355, y: -16.663128, z: 101.194534}
     speed: 2
-    m_Value: {x: 1280, y: 720, z: 0}
+    m_Value: {x: -50.096355, y: -16.663128, z: 101.194534}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -663,13 +663,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.27980673, y: 0.09397955, z: -0.02755319, w: -0.955062}
+    m_Target: {x: -0.3967751, y: 0.004668416, z: -0.002031801, w: -0.9179212}
     speed: 2
-    m_Value: {x: -0.27980304, y: 0.09397831, z: -0.027552824, w: -0.95504934}
+    m_Value: {x: -0.396768, y: 0.0046683326, z: -0.0020317647, w: -0.9179048}
   m_Size:
-    m_Target: 1187.5559
+    m_Target: 20.150208
     speed: 2
-    m_Value: 1187.5559
+    m_Value: 20.150208
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -732,23 +732,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/3D Model/Animations
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/3D Model/Animations
   m_LastFoldersGridSize: 96
   m_LastProjectPath: D:\02_ALLGEMEINER UNI ORDNER\Computergrafik\Diablo-but-with-Guns\Diablo
     but with Guns
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 39}
-    m_SelectedIDs: e86f0000
-    m_LastClickedID: 28648
-    m_ExpandedIDs: 00000000066f0000086f0000ea6f000000ca9a3b
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: b0680100
+    m_LastClickedID: 92336
+    m_ExpandedIDs: 00000000a4680100a668010000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -776,7 +776,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000066f0000086f0000
+    m_ExpandedIDs: 00000000a4680100a6680100
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
