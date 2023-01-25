@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public float maxHealth = 100;
+    public float maxHealth;
     public float currentHealth;
     public HealthBar healthBar;
     public bool isDead = false;

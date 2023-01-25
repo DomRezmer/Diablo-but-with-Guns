@@ -235,7 +235,7 @@ public class ClickToMove : MonoBehaviour
 
                 else if (targetedEnemy.GetComponent<EnemyHealth>().currentHealth <= 0 && targetedEnemy.tag == "Enemy")
                 {
-                    Destroy(targetedEnemy.gameObject);
+                    targetedEnemy.GetComponent<EnemyBehaiviour>().isDead = true;
                     anim.SetBool("Hit1", false);
 
                     gameController.GetComponent<LevelUpSystem>().AddEXP();

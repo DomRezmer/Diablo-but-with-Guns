@@ -22,6 +22,7 @@ public class EnemyBehaiviour : Interactable
     public float attackDamage = 2;
     private float nextAttack;
     public float attackRate = 1f;
+    public bool isDead;
 
     //TARGET
     Transform targetPlayer;
@@ -38,29 +39,38 @@ public class EnemyBehaiviour : Interactable
     // Update is called once per frame
     void Update()
     {
-        anim.SetBool("walking", walking);
+        if (!isDead)
+        {
 
-        if (!walking)
-        {
-            anim.SetBool("idling", true);
-        }
-        else
-        {
-            anim.SetBool("idling", false);
-        }
+            anim.SetBool("walking", walking);
 
-        float distance = Vector3.Distance(transform.position, targetPlayer.position);
-        
-        if(distance <= lookRadius)
-        {
-            //move to Target
-            MoveAndAttack();
-            //attack
+            if (!walking)
+            {
+                anim.SetBool("idling", true);
+            }
+            else
+            {
+                anim.SetBool("idling", false);
+            }
+
+            float distance = Vector3.Distance(transform.position, targetPlayer.position);
+
+            if (distance <= lookRadius)
+            {
+                //move to Target
+                MoveAndAttack();
+                //attack
+            }
+            else
+            {
+                walking = false;
+            }
         }
-        else
+        else if (anim.GetBool("isDead") == false)
         {
-            walking = false;
-        }
+            anim.Play("Death");
+         }
+
     }
 
     void MoveAndAttack()
