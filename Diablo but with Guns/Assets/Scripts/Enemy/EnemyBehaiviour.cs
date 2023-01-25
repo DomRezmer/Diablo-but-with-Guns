@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [RequireComponent(typeof(CapsuleCollider))]
-[RequireComponent (typeof(Rigidbody))]
+//[RequireComponent (typeof(Rigidbody))]
 [RequireComponent(typeof(NavMeshAgent))]
 public class EnemyBehaiviour : Interactable
 {
@@ -26,6 +26,7 @@ public class EnemyBehaiviour : Interactable
 
     //TARGET
     Transform targetPlayer;
+    [SerializeField] GameObject canvas;
 
     // Start is called before the first frame update
     void Start()
@@ -66,11 +67,6 @@ public class EnemyBehaiviour : Interactable
                 walking = false;
             }
         }
-        else if (anim.GetBool("isDead") == false)
-        {
-            anim.Play("Death");
-         }
-
     }
 
     void MoveAndAttack()

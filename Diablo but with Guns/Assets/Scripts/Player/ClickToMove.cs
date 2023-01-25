@@ -36,10 +36,7 @@ public class ClickToMove : MonoBehaviour
     private bool isObjectClicked;
     private bool isChestOpen; //Funktioniert für eine Chest aber nicht für mehrere
 
-    //DOUBLE CLICK
-    private bool oneClick;
-    private float timerForDoubleClick;
-    private float delay = 0.25f;
+    public GameObject deathParticle;
 
     void Awake()
     {
@@ -235,7 +232,12 @@ public class ClickToMove : MonoBehaviour
 
                 else if (targetedEnemy.GetComponent<EnemyHealth>().currentHealth <= 0 && targetedEnemy.tag == "Enemy")
                 {
-                    targetedEnemy.GetComponent<EnemyBehaiviour>().isDead = true;
+                    Destroy(targetedEnemy.gameObject);
+                    if (!targetedEnemy.GetComponent<EnemyBehaiviour>().isDead)
+                    {
+                        Instantiate(deathParticle, targetedEnemy.transform.position, targetedEnemy.transform.rotation);
+                        targetedEnemy.GetComponent<EnemyBehaiviour>().isDead = true;
+                    }
                     anim.SetBool("Hit1", false);
 
                     gameController.GetComponent<LevelUpSystem>().AddEXP();

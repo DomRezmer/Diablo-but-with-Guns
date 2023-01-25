@@ -2065,6 +2065,7 @@ MonoBehaviour:
   attackDistance: 3
   attackRate: 1
   gameController: {fileID: 0}
+  deathParticle: {fileID: 1876081050882714, guid: e5df5caad603c8349ba3481b8ded0927, type: 3}
 --- !u!114 &5942366586581195486
 MonoBehaviour:
   m_ObjectHideFlags: 0
