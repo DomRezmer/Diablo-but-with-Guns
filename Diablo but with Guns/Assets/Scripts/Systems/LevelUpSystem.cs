@@ -29,6 +29,11 @@ public class LevelUpSystem : MonoBehaviour
         CalculateLevel(25);
     }
 
+    public void AddBossEXP()
+    {
+        CalculateLevel(100);
+    }
+
     void CalculateLevel(int amount)
     {
         currentEXP += amount;

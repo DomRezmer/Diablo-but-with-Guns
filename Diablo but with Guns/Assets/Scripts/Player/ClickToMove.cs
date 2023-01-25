@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
- 
+
 
 public class ClickToMove : MonoBehaviour
 {
     public Transform player;
-    
+
     [Header("Stats")]
     public float damageAmount;
     private float baseDamage = 20;
@@ -29,7 +29,7 @@ public class ClickToMove : MonoBehaviour
     //PLAYER ANIMATIONS
     private bool crouching = false;
     private bool crouchWalke;
-    private bool standing = true; 
+    private bool standing = true;
 
     //INTERACTABLES
     private Transform clickedObject;
@@ -38,7 +38,6 @@ public class ClickToMove : MonoBehaviour
 
     //DOUBLE CLICK
     private bool oneClick;
-    private bool doubleClick;
     private float timerForDoubleClick;
     private float delay = 0.25f;
 
@@ -53,74 +52,78 @@ public class ClickToMove : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (standing) {
-
-        
-        CheckDoubleClick();
-
-        if (Input.GetButtonDown("Fire2") && !player.GetComponent<PlayerHealth>().isDead)
+        if (standing)
         {
-            navMeshAgent.ResetPath();
-            if (Physics.Raycast(ray, out hit, 1000))
+
+            if (Input.GetButtonDown("Fire2") && !player.GetComponent<PlayerHealth>().isDead)
             {
-                if(hit.collider.tag == "Enemy")
+                navMeshAgent.ResetPath();
+                if (Physics.Raycast(ray, out hit, 1000))
                 {
-                    targetedEnemy = hit.transform;
-                    enemyClicked = true;
-                    print("Enemy HIT!");
+                    if (hit.collider.tag == "Enemy")
+                    {
+                        targetedEnemy = hit.transform;
+                        enemyClicked = true;
+                        print("Enemy HIT!");
+                    }
+                    else if (hit.collider.tag == "Boss")
+                    {
+                        targetedEnemy = hit.transform;
+                        enemyClicked = true;
+                        print("Boss HIT!");
+                    }
+                    else if (hit.collider.tag == "Chest")
+                    {
+                        isObjectClicked = true;
+                        clickedObject = hit.transform;
+                    }
+                    else if (hit.collider.tag == "Info")
+                    {
+                        isObjectClicked = true;
+                        clickedObject = hit.transform;
+                    }
+                    else
+                    {
+                        walking = true;
+                        enemyClicked = false;
+                        navMeshAgent.isStopped = false;
+                        navMeshAgent.destination = hit.point;
+                    }
                 }
-                else if(hit.collider.tag == "Chest")
+            }
+
+            if (enemyClicked)
+            {
+                MoveAndAttack();
+            }
+            else if (enemyClicked) //Change this to if Left click
+            {
+                //Select enemy
+            }
+            else if (isObjectClicked && clickedObject.gameObject.tag == "Info")
+            {
+                ReadInfos(clickedObject);
+            }
+            else if (isObjectClicked && clickedObject.gameObject.tag == "Chest" && !isChestOpen)
+            {
+                OpenChest(clickedObject);
+            }
+            else
+            {
+                if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
                 {
-                    isObjectClicked = true;
-                    clickedObject = hit.transform;
+                    walking = false;
                 }
-                else if (hit.collider.tag == "Info")
-                {
-                    isObjectClicked = true;
-                    clickedObject = hit.transform;
-                }
-                else
+                else if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance >= navMeshAgent.stoppingDistance)
                 {
                     walking = true;
-                    enemyClicked = false;
-                    navMeshAgent.isStopped = false;
-                    navMeshAgent.destination = hit.point;
                 }
-            }
-        }
 
-        if(enemyClicked)
-        {
-            MoveAndAttack();
-        }
-        else if (enemyClicked) //Change this to if Left click
-        {
-            //Select enemy
-        }
-        else if(isObjectClicked && clickedObject.gameObject.tag == "Info")
-        {
-            ReadInfos(clickedObject);
-        }
-        else if (isObjectClicked && clickedObject.gameObject.tag == "Chest" && !isChestOpen)
-        {
-            OpenChest(clickedObject);
-        }
-        else
-        {
-            if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
-            {
-                walking = false;
-            }
-            else if(!navMeshAgent.pathPending && navMeshAgent.remainingDistance >= navMeshAgent.stoppingDistance)
-            {
-                walking = true;
             }
 
+            anim.SetBool("isWalking", walking);
         }
 
-        anim.SetBool("isWalking", walking);
-    }
-        
         if (Input.GetKeyDown("c"))
         {
             standing = !standing;
@@ -140,6 +143,12 @@ public class ClickToMove : MonoBehaviour
                         targetedEnemy = hit.transform;
                         enemyClicked = true;
                         print("Enemy HIT!");
+                    }
+                    else if (hit.collider.tag == "Boss")
+                    {
+                        targetedEnemy = hit.transform;
+                        enemyClicked = true;
+                        print("Boss HIT!");
                     }
                     else if (hit.collider.tag == "Chest")
                     {
@@ -166,10 +175,6 @@ public class ClickToMove : MonoBehaviour
             {
                 MoveAndAttack();
             }
-            else if (enemyClicked) //Change this to if Left click
-            {
-                //Select enemy
-            }
             else if (isObjectClicked && clickedObject.gameObject.tag == "Info")
             {
                 ReadInfos(clickedObject);
@@ -182,30 +187,30 @@ public class ClickToMove : MonoBehaviour
             {
                 if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
                 {
-                    crouchWalke  = false;
+                    crouchWalke = false;
                 }
                 else if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance >= navMeshAgent.stoppingDistance)
                 {
-                    
-                    crouchWalke= true;
+
+                    crouchWalke = true;
                 }
 
             }
         }
         anim.SetBool("isCrouchWalking", crouchWalke);
-        
+
     }
 
     void MoveAndAttack()
     {
-        if(targetedEnemy == null)
+        if (targetedEnemy == null)
         {
             return;
         }
 
         navMeshAgent.destination = targetedEnemy.position;
 
-        if(!navMeshAgent.pathPending && navMeshAgent.remainingDistance > attackDistance)
+        if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance > attackDistance)
         {
             navMeshAgent.isStopped = false;
             walking = true;
@@ -216,24 +221,38 @@ public class ClickToMove : MonoBehaviour
             transform.LookAt(targetedEnemy);
             Vector3 dirToAttack = targetedEnemy.transform.position - transform.position;
 
-            if(Time.time > nextAttack)
+            if (Time.time > nextAttack)
             {
                 targetedEnemy.GetComponent<Interactable>().Interact();
 
                 nextAttack = Time.time + attackRate;
                 anim.SetBool("Hit1", true);
 
-                if (targetedEnemy.GetComponent<EnemyHealth>().currentHealth > 0)
+                if (targetedEnemy.GetComponent<EnemyHealth>().currentHealth > 0 && targetedEnemy.tag == "Enemy")
                 {
                     targetedEnemy.GetComponent<EnemyHealth>().TakeDamage(damageAmount);
                 }
 
-                else if (targetedEnemy.GetComponent<EnemyHealth>().currentHealth <= 0)
+                else if (targetedEnemy.GetComponent<EnemyHealth>().currentHealth <= 0 && targetedEnemy.tag == "Enemy")
                 {
                     Destroy(targetedEnemy.gameObject);
                     anim.SetBool("Hit1", false);
 
                     gameController.GetComponent<LevelUpSystem>().AddEXP();
+                    LevelUp();
+                }
+
+                else if (targetedEnemy.GetComponent<EnemyHealth>().currentHealth > 0 && targetedEnemy.tag == "Boss")
+                {
+                    targetedEnemy.GetComponent<EnemyHealth>().TakeDamage(damageAmount);
+                }
+
+                else if (targetedEnemy.GetComponent<EnemyHealth>().currentHealth <= 0 && targetedEnemy.tag == "Boss")
+                {
+                    targetedEnemy.GetComponent<BossBehaiviour>().isDead = true;
+                    anim.SetBool("Hit1", false);
+
+                    gameController.GetComponent<LevelUpSystem>().AddBossEXP();
                     LevelUp();
                 }
             }
@@ -248,13 +267,13 @@ public class ClickToMove : MonoBehaviour
         //set target
         navMeshAgent.destination = target.position;
         //go close
-        if(!navMeshAgent.pathPending && navMeshAgent.remainingDistance > attackDistance)
+        if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance > attackDistance)
         {
             navMeshAgent.isStopped = false;
             walking = true;
         }
         //then read
-        else if(!navMeshAgent.pathPending && navMeshAgent.remainingDistance < attackDistance)
+        else if (!navMeshAgent.pathPending && navMeshAgent.remainingDistance < attackDistance)
         {
             navMeshAgent.isStopped = true;
             transform.LookAt(target);
@@ -265,7 +284,7 @@ public class ClickToMove : MonoBehaviour
 
             isObjectClicked = false;
             navMeshAgent.ResetPath();
-        }     
+        }
     }
 
     void OpenChest(Transform target)
@@ -291,32 +310,6 @@ public class ClickToMove : MonoBehaviour
 
             isObjectClicked = false;
             navMeshAgent.ResetPath();
-        }
-    }
-
-    void CheckDoubleClick()
-    {
-        if (Input.GetButtonDown("Fire2"))
-        {
-            if (!oneClick)
-            {
-                oneClick = true;
-                timerForDoubleClick = Time.time;
-            }
-            else
-            {
-                oneClick = false;
-                doubleClick = true;
-            }
-        }
-
-        if (oneClick)
-        {
-            if((Time.time - timerForDoubleClick) > delay)
-            {
-                oneClick = false;
-                doubleClick = false;
-            }
         }
     }
 
