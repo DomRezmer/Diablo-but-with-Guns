@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour, IPointerClickHandler
+public class Slot : MonoBehaviour, IPointerClickHandler // interface that implements OnPointerClick callbacks
 {
     public GameObject item;
     public int ID;
@@ -17,7 +17,7 @@ public class Slot : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData pointerEventData)
     {
-        UseItem();
+        UseItem(); // if click on it use ITem 
     }
 
     private void Start ()

@@ -28,12 +28,13 @@ public class Item : MonoBehaviour
         weaponManager = GameObject.FindWithTag("WeaponManager");
         if (!playersWeapon) 
         {
-            int allWeapons = weaponManager.transform.childCount;
-            for(int i = 0; i< allWeapons; i++)
+            int allWeapons = weaponManager.transform.childCount; // check all Weapons in Weapon manager with for loop
+            for(int i = 0; i < allWeapons; i++)
             {
-                if(weaponManager.transform.GetChild(i).gameObject.GetComponent<Item>().ID == ID);
+                if(weaponManager.transform.GetChild(i).gameObject.GetComponent<Item>().ID == ID); // if id is same
                         {
-                weapon = weaponManager.transform.GetChild(i).gameObject;
+                weapon = weaponManager.transform.GetChild(i).gameObject; // transform 
+                    print(weapon.name);
             }
             }
         }
@@ -53,7 +54,7 @@ public class Item : MonoBehaviour
     }
 
 
-    public void ItemUsage()
+    public void ItemUsage() // equip weapon
     {
 
         if(type == "Weapon")
