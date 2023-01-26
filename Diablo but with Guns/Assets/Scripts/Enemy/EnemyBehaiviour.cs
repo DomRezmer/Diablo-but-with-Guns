@@ -12,7 +12,7 @@ public class EnemyBehaiviour : Interactable
     //NAV MESH AGENT
     private NavMeshAgent navMeshAgent;
     private Animator anim;
-    private bool walking;
+    private bool walking = false;
 
     //RADIUS
     public float lookRadius;
@@ -26,8 +26,7 @@ public class EnemyBehaiviour : Interactable
 
     //TARGET
     Transform targetPlayer;
-    [SerializeField] GameObject canvas;
-
+ 
     // Start is called before the first frame update
     void Start()
     {

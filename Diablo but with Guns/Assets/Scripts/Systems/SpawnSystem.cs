@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -39,7 +37,7 @@ public class SpawnSystem : MonoBehaviour
 
         int spawnAmount = Random.Range(1, maxSpawnAmount+1);
 
-        for(int i = 0; i < spawnAmount; i++)
+        for(int i = 0; i < 3/*spawnAmount*/; i++)
         {
             /*SQUARE 
             float xSpawnPos = transform.position.x + Random.Range(-spawnRange, spawnRange);
