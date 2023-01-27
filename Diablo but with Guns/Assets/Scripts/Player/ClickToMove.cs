@@ -38,6 +38,7 @@ public class ClickToMove : MonoBehaviour
     private bool isChestOpen; //Funktioniert für eine Chest aber nicht für mehrere
 
     public GameObject deathParticle;
+    public GameObject healParticle;
     public GameObject Sword;
     private bool swordtoggle = true; 
 
@@ -53,12 +54,25 @@ public class ClickToMove : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (standing)
-
         {
             if (Input.GetKey("q")){
                 Sword.SetActive(swordtoggle);
                 swordtoggle=!swordtoggle;
                 damageAmount += 5;
+            }
+
+            if (Input.GetKey("h"))
+            {
+                if(player.GetComponent<PlayerHealth>().currentHealth >= 80)
+                {
+                    player.GetComponent<PlayerHealth>().currentHealth = 100;
+                    Instantiate(healParticle, player.transform.position, player.transform.rotation);
+                }
+                else
+                {
+                    player.GetComponent<PlayerHealth>().currentHealth += 20;
+                    Instantiate(healParticle, player.transform.position, player.transform.rotation);
+                }
             }
 
             if (Input.GetButtonDown("Fire2") && !player.GetComponent<PlayerHealth>().isDead)
